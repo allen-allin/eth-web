@@ -1,23 +1,32 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from './views/Home.vue'
+import Help from './views/Help.vue'
+import Guess from './views/Guess.vue'
+import Random from './views/Random.vue'
 
 Vue.use(Router)
 
 export default new Router({
-  routes: [
-    {
-      path: '/',
-      name: 'home',
-      component: Home
-    },
-    {
-      path: '/help',
-      name: 'help',
-      // route level code-splitting
-      // this generates a separate chunk (about.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import(/* webpackChunkName: "about" */ './views/Help.vue')
-    }
-  ]
+	routes: [
+		{
+			path: '/',
+			name: 'home',
+			component: Home
+		},
+		{
+			path: '/help',
+			name: 'help',
+			component: Help
+		},
+		{
+			path: '/guess',
+			name: 'guess',
+			component: Guess
+		},{
+            path: '/random',
+            name: 'random',
+            component: Random
+        }
+	]
 })

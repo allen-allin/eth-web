@@ -1,5 +1,6 @@
 <template>
     <div id="app">
+        
         <div id="nav" :class="{nobg: $route.path === '/' || $route.path === '/help'}">
             <router-link to="/help"> {{$t('nav.help')}} </router-link>
 
@@ -14,17 +15,18 @@
                 </div>
                 <span slot="reference"> {{$t('nav.invite')}} </span>
             </el-popover>
-            <router-link to="/guess">{{$t('nav.guess')}}</router-link>
+            <router-link to="/play">{{$t('nav.guess')}}</router-link>
             <img src="./assets/img/logo.svg" alt="" width="100" @click="$router.push('/')">
             <span @click="setLang"> en/zh </span>
             <div class="user" @click="showReg = true"> {{$t('nav.register')}} </div>
             <div class="user" @click="showLogin = true"> {{$t('nav.login')}} </div>
 
         </div>
+        <Counter v-if="$route.path !== '/help'"></Counter>
         <div class="view">
             <router-view/>
         </div>
-
+        
         <el-dialog title="登陆" :visible.sync="showLogin" width="350px" :model="loginForm">
             <div>
                 <el-input style="margin-bottom: 20px" v-model="loginForm.username" placeholder="username"></el-input>
@@ -89,6 +91,7 @@
 
 <script>
     import Vue from 'vue'
+    import Counter from '@/components/Counter'
     export default {
     	data() {
     		return {
@@ -115,7 +118,8 @@
             handleLogin() {
                 console.log(this.loginForm)
             }
-    	}
+        },
+        components: { Counter }
     }
 </script>
 

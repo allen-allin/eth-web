@@ -1,48 +1,51 @@
 <template>
     <div class="home">
-        <Const></Const>
-        <div class="cont">
-            <div class="countdowns">
-                <div v-for="(item,idx) in counts" :key="idx">
-                    <div class="time-num"> {{countdown(item.type)}} </div>
-                    <div class="time-type"> {{item.text}} </div>
-                </div>
-            </div>
 
-        </div>
+        <div class="game-card" @click="go('random?eth=0.3')">0.3Eth</div>
+        <div class="game-card" @click="go('random?eth=3')">3Eth</div>
+        <div class="game-card" @click="go('guess')">Guess</div>
     </div>
 </template>
 
 <script>
-    import Const from '@/components/Constellation'
     export default {
     	data() {
     		return {}
     	},
     	computed: {
-    		counts() {
-    			return ['d', 'h', 'm', 's'].map(v => ({
-    				type: v,
-    				text: this.$t('counts.' + v)
-    			}))
-    		}
+
     	},
     	methods: {
-    		countdown(item) {
-                const time = new Date()
-    			return time.getMonth()
+    		go(link) {
+                this.$router.push(link)
     		}
     	},
-
-    	components: { Const }
     }
 </script>
 
 <style lang="scss" scoped>
     .home {
     	background: black;
-    	height: 100vh;
     	color: white;
+        display: flex;
+        justify-content: center;
+        margin-top: -150px;
+        padding-bottom: 100px;
+        >div {
+            width: 300px;
+            height: 400px;
+            margin: 0 50px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 8px;
+            transition: all 0.3s;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            &:hover {
+                border-color: white;
+            }
+        }
     }
     .cont {
     	padding-top: 140px;
