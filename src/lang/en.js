@@ -2,7 +2,7 @@ export default {
     nav: {
         help: 'HELP',
         invite: 'INVITE FRIENDS',
-        guess: 'GUESS',
+        guess: 'GAME',
         register: 'REGISTER',
         login: 'LOGIN',
         home: 'HOME'
