@@ -1,7 +1,7 @@
 <template>
     <div id="app">
 
-        <div id="nav" :class="{nobg: $route.path === '/' || $route.path === '/help'}">
+        <div id="nav" >
             <router-link to="/help"> {{$t('nav.help')}} </router-link>
 
             <el-popover placement="top-start" popper-class="invite" width="250" trigger="hover">
@@ -28,7 +28,8 @@
             <img src="./assets/img/logo.svg" alt="" width="100" @click="$router.push('/')">
             <span @click="setLang"> en/zh </span>
             <div class="user" @click="showReg = true"> {{$t('nav.register')}} </div>
-            <div class="user" @click="showLogin = true"> {{$t('nav.login')}} </div>
+            <div class="user" v-if="!isLogin" @click="showLogin = true"> {{$t('nav.login')}} </div>
+            <div class="user" v-else @click="showUserCenter = true"> username </div>
 
         </div>
         <Counter v-if="$route.path !== '/help'"></Counter>
@@ -97,12 +98,17 @@
                 </el-form-item>
             </el-form>
         </el-dialog>
+
+        <el-dialog title="个人中心" :visible.sync="showUserCenter" width="1000px">
+            <UserCenter v-if="showUserCenter"></UserCenter>
+        </el-dialog>
     </div>
 </template> 
 
 <script>
 import Vue from 'vue'
 import Counter from '@/components/Counter'
+import UserCenter from '@/views/UserCenter/index'
 export default {
     data() {
         return {
@@ -112,7 +118,9 @@ export default {
             showLogin: false,
             showReg: false,
             showReset: false,
-            showPop: false
+            showPop: false,
+            showUserCenter: false,
+            isLogin: false
         }
     },
     mounted() {},
@@ -128,10 +136,12 @@ export default {
             console.log(this.resetForm)
         },
         handleLogin() {
+            this.showLogin = false
+            this.isLogin = true
             console.log(this.loginForm)
         }
     },
-    components: { Counter }
+    components: { Counter ,UserCenter}
 }
 </script>
 
@@ -178,6 +188,11 @@ export default {
         height: 45px;
         line-height: 45px;
         border-radius: 5px;
+        transition: all 0.3s;
+        &:hover {
+            border-color: white;
+            color: #14c700;
+        }
     }
 }
 .view {
